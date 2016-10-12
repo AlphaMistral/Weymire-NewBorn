@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 	private void EasyJoystick_On_JoystickMove (MovingJoystick move)
 	{
 		joyStickValueX = move.joystickValue.x;
-		joyStickValueX = move.joystickValue.y;
+		joyStickValueY = move.joystickValue.y;
 		if (Mathf.Abs(joyStickValueX) < sensitivityThresold)
 			joyStickValueX = 0f;
 		if (Mathf.Abs(joyStickValueY) < sensitivityThresold)
