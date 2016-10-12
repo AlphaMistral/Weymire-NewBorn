@@ -5,8 +5,8 @@ public class PlayerMovement : MonoBehaviour
 {
 	#region Public Variables
 
-	public float movingSpeed;
-	public float rotatingSpeed;
+	public float movingSpeed = 3f;
+	public float rotatingSpeed = 3f;
 
 	#endregion
 
@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Awake ()
 	{
+		//playerCamera = Camera.main.gameObject;
 		m_camera_transform = playerCamera.transform;
 		m_animator = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody>();

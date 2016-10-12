@@ -30,7 +30,7 @@ public class ItemShower : MonoBehaviour
 	public int paddingDistance;
 
 	/// <summary>
-	/// The speed of the typewritting effect in the commetnts. Please note that the typingSpeed is how many characters per second. 
+	/// The speed of the typewritting effect in the commetnts. Please note that the typingSpeed is 1 / how many characters per second. 
 	/// </summary>
 	public float typingSpeed;
 
@@ -58,6 +58,12 @@ public class ItemShower : MonoBehaviour
 	/// The scroll view.
 	/// </summary>
 	public UIScrollView scrollView;
+
+	/// <summary>
+	/// The wait time for the dialogue to start. Only after this period could a dialogue begin. 
+	/// Just made to avoid possible awkward blink on dialogue area. No other senses. 
+	/// </summary>
+	private static float waitTime = 1f;
 
 	#endregion
 
@@ -124,6 +130,7 @@ public class ItemShower : MonoBehaviour
 
 		// Alter the itemSprite and reminderContent here!
 		yield return new WaitForEndOfFrame ();
+		yield return new WaitForSeconds(waitTime);
 		InstantiateNewComment(out currentSprite, out currentLabel, true);
 		while (currentIndex < comments.Length)
 		{
