@@ -1,25 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PermanentItem : Item 
+public class PermanentItem : DisplayItem
 {
-	#region Private Variables
+	#region Public Attributes
 
 	/// <summary>
 	/// The sprite name of the Item. Used in NGUI Displaying. 
 	/// </summary>
-	private string spriteName;
-
-	/// <summary>
-	/// The model name of the Item. Used in BackPack. 
-	/// </summary>
-	private string modelName;
-
-	#endregion
-
-	#region Public Attributes
-
-	public string SpriteName
+	public override string SpriteName
 	{
 		get
 		{
@@ -27,11 +16,22 @@ public class PermanentItem : Item
 		}
 	}
 
-	public string ModelName
+	/// <summary>
+	/// The model name of the Item. Used in BackPack. 
+	/// </summary>
+	public override string ModelName
 	{
 		get
 		{
 			return modelName;
+		}
+	}
+
+	public override string Introduction
+	{
+		get
+		{
+			return introduction;
 		}
 	}
 

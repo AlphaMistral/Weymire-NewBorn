@@ -1,25 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UsableItem : Item 
+public class UsableItem : DisplayItem 
 {
-	#region Private Variables
+	#region Public Attributes
 
 	/// <summary>
 	/// The sprite name of the Item. Used in NGUI Displaying. 
 	/// </summary>
-	private string spriteName;
-
-	/// <summary>
-	/// The model name of the Item. Used in BackPack. 
-	/// </summary>
-	private string modelName;
-
-	#endregion
-
-	#region Public Attributes
-
-	public string SpriteName
+	public override string SpriteName
 	{
 		get
 		{
@@ -27,7 +16,10 @@ public class UsableItem : Item
 		}
 	}
 
-	public string ModelName
+	/// <summary>
+	/// The model name of the Item. Used in BackPack. 
+	/// </summary>
+	public override string ModelName
 	{
 		get
 		{
@@ -35,6 +27,13 @@ public class UsableItem : Item
 		}
 	}
 
+	public override string Introduction
+	{
+		get
+		{
+			return introduction;
+		}
+	}
 	#endregion
 
 	#region Constructor

@@ -6,7 +6,7 @@ using PixelCrushers.DialogueSystem;
 public class InventoryState
 {
 	public LensItem lensItem;
-	public Item item;
+	public DisplayItem item;
 }
 
 public class PlayerInventory : MonoBehaviour 
@@ -23,7 +23,7 @@ public class PlayerInventory : MonoBehaviour
 		}
 	}
 
-	public Item EquippedItem
+	public DisplayItem EquippedItem
 	{
 		get
 		{
@@ -36,7 +36,7 @@ public class PlayerInventory : MonoBehaviour
 	}
 
 	private LensItem equippedLens;
-	private Item equippedItem;
+	private DisplayItem equippedItem;
 
 	[SerializeField]
 	private BackPack backPack;
@@ -49,7 +49,7 @@ public class PlayerInventory : MonoBehaviour
 
 	private InventoryState inventoryState;
 
-	private List <Item> inventoryItems = new List <Item> ();
+	private List <DisplayItem> inventoryItems = new List <DisplayItem> ();
 
 	void Awake()
 	{
@@ -62,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
 			DestroyImmediate(gameObject);
 		}
 		DontDestroyOnLoad(gameObject);
-		inventoryItems = new List <Item>();
+		inventoryItems = new List <DisplayItem>();
 	}
 
 	void Start ()
@@ -93,10 +93,10 @@ public class PlayerInventory : MonoBehaviour
 	/// Put the items in the list into the playerInventory and set them under the control of the invertory system.
 	/// </summary>
 	/// <param name="items">Items.</param>
-	public static void AddNewItemList(List<Item> items)
+	public static void AddNewItemList(List<DisplayItem> items)
 	{
 		//instance.backPack.InsertItemList(items);
-		foreach (Item item in items)
+		foreach (DisplayItem item in items)
 			AddNewItem(item);
 	}
 
@@ -104,7 +104,7 @@ public class PlayerInventory : MonoBehaviour
 	/// Just in case, a function which conveniently process a single item is also provided.
 	/// </summary>
 	/// <param name="item">Item.</param>
-	public static void AddNewItem(Item item)
+	public static void AddNewItem(DisplayItem item)
 	{
 		//instance.backPack.InsertItem(item);
 		instance.inventoryItems.Add (item);
@@ -149,7 +149,7 @@ public class PlayerInventory : MonoBehaviour
 	/// </summary>
 	/// <returns>The item from file.</returns>
 	/// <param name="index">Index.</param>
-	private static Item ReadItemFromFile (ItemType type, int index)
+	private static DisplayItem ReadItemFromFile (ItemType type, int index)
 	{
 		switch (type)
 		{
@@ -161,14 +161,14 @@ public class PlayerInventory : MonoBehaviour
 				break;
 			case ItemType.Reminder:
 			default:
-				return ReminderItem.GetItemByID(index);
+				return UsableItem.GetItemByID(index);
 				break;
 		}
 	}
 
 	public static void AddItemByIndex (ItemType type, int index)
 	{
-		Item toAdd = ReadItemFromFile(type, index);
+		DisplayItem toAdd = ReadItemFromFile(type, index);
 		AddNewItem(toAdd);
 	}
 
@@ -177,7 +177,7 @@ public class PlayerInventory : MonoBehaviour
 		return instance.inventoryState;
 	}
 
-	public static List<Item> GetItemList ()
+	public static List<DisplayItem> GetItemList ()
 	{
 		return instance.inventoryItems;
 	}

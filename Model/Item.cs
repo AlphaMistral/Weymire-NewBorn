@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Item
 {
-	#region Protected Vairbles
+	#region Protected Variables
 
 	/// <summary>
 	/// The index of the Item in its OWN CATEGORY. Two different items may have a same index. However they are tracked in different databases. 
@@ -42,5 +42,40 @@ public abstract class Item
 
 	//There is no specific Attribute for Introduction because Introduction is treated differently in items and reminders. 
 
+	#endregion
+}
+
+public abstract class DisplayItem : Item
+{
+	#region Protected Variables
+
+	protected string spriteName;
+
+	protected string modelName;
+
+	#endregion
+
+	#region Public Attributes
+
+	/// <summary>
+	/// The sprite name of the Item. Used in NGUI Displaying. 
+	/// </summary>
+	public abstract string SpriteName
+	{
+		get;
+	}
+
+	/// <summary>
+	/// The model name of the Item. Used in BackPack. 
+	/// </summary>
+	public abstract string ModelName
+	{
+		get;
+	}
+
+	public abstract string Introduction
+	{
+		get;
+	}
 	#endregion
 }
