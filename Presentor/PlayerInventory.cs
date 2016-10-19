@@ -151,19 +151,10 @@ public class PlayerInventory : MonoBehaviour
 	/// <param name="index">Index.</param>
 	private static DisplayItem ReadItemFromFile (ItemType type, int index)
 	{
-		switch (type)
-		{
-			case ItemType.Permanent: 
-				return PermanentItem.GetItemByID(index);
-				break;
-			case ItemType.Usable:
-				return UsableItem.GetItemByID(index);
-				break;
-			case ItemType.Reminder:
-			default:
-				return UsableItem.GetItemByID(index);
-				break;
-		}
+		if (type == ItemType.Permanent)
+			return PermanentItem.GetItemByID(index);
+		else
+			return UsableItem.GetItemByID(index);
 	}
 
 	public static void AddItemByIndex (ItemType type, int index)
