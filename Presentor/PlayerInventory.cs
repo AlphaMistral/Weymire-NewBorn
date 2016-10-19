@@ -67,12 +67,7 @@ public class PlayerInventory : MonoBehaviour
 
 	void Start ()
 	{
-		//Start the corresponding coroutines here.
-		//Item item1 = ReadItemFromFile (0);
-		//Item item2 = ReadItemFromFile (0);
-		//inventoryItems.Add(item1);
-		//inventoryItems.Add(item2);
-		TestAddItem ();
+		
 	}
 
 	private static void LoadItems()
@@ -133,7 +128,7 @@ public class PlayerInventory : MonoBehaviour
 	{
 		if (instance.equippedItem == null)
 			return;
-		if (instance.equippedItem.IsPermanent)
+		if (Object.ReferenceEquals (instance.equippedItem.GetType (), typeof (PermanentItem)))
 		{
 			instance.inventoryItems.Remove(instance.equippedItem);
 			instance.equippedItem = instance.inventoryState.item = null;
@@ -154,21 +149,26 @@ public class PlayerInventory : MonoBehaviour
 	/// </summary>
 	/// <returns>The item from file.</returns>
 	/// <param name="index">Index.</param>
-	private static Item ReadItemFromFile (int index)
+	private static Item ReadItemFromFile (ItemType type, int index)
 	{
-		string itemString = InfoSaver.GetStringFromResource(Consts.FileName.items, index);
-		string[] strings = itemString.Split('#');
-		int idx = int.Parse (strings[0]);
-		string name = strings[1];
-		string modelName = strings[2];
-		string introduction = strings[3];
-		bool p = int.Parse(strings[4]) == 1;
-		return new Item(idx, name, modelName, introduction, p);
+		switch (type)
+		{
+			case ItemType.Permanent: 
+				return PermanentItem.GetItemByID(index);
+				break;
+			case ItemType.Usable:
+				return UsableItem.GetItemByID(index);
+				break;
+			case ItemType.Reminder:
+			default:
+				return ReminderItem.GetItemByID(index);
+				break;
+		}
 	}
 
-	public static void AddItemByIndex (int index)
+	public static void AddItemByIndex (ItemType type, int index)
 	{
-		Item toAdd = ReadItemFromFile(index);
+		Item toAdd = ReadItemFromFile(type, index);
 		AddNewItem(toAdd);
 	}
 
@@ -180,11 +180,5 @@ public class PlayerInventory : MonoBehaviour
 	public static List<Item> GetItemList ()
 	{
 		return instance.inventoryItems;
-	}
-
-	public void TestAddItem ()
-	{
-		Item item = ReadItemFromFile(0);
-		AddNewItem(item);
 	}
 }

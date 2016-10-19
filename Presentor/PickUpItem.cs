@@ -14,7 +14,7 @@ public class PickUpItem : PhotoObject
 	/// </summary>
 	public override void PhotoTaken (InventoryState state)
 	{
-		PlayerInventory.AddItemByIndex(itemIndex);
+		//PlayerInventory.AddItemByIndex(itemIndex);
 		//To Be Continued: 
 		//Listen to the event raised by photoObjectShower and destroy. 
 	}

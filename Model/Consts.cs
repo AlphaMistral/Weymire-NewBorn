@@ -139,3 +139,11 @@ public enum ReminderType
 	Newspaper = 3,
 	ResearchReport = 4
 }
+
+public enum ItemType
+{
+	Permanent = 1,
+	Usable = 2,
+	Reminder = 3,
+	Lens = 4
+}
