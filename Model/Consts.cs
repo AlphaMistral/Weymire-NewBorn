@@ -124,3 +124,18 @@ public class Tags
 	public static string RealPicture = "RealPicture";
 	public static string Flare = "Flare";
 }
+
+public class FileName
+{
+	public static string PermamnentItem = "PermanentItem";
+	public static string UsableItem = "UsableItem";
+	public static string ReminderItem = "ReminderItem";
+}
+
+public enum ReminderType
+{
+	Letter = 1,
+	EMail = 2,
+	Newspaper = 3,
+	ResearchReport = 4
+}
