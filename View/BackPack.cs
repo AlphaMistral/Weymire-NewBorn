@@ -8,6 +8,11 @@ using System.Collections.Generic;
 public class BackPack : MonoBehaviour 
 {
 	/// <summary>
+	/// The singleton of the BackPack class. Please note that there is one and only one backpack in the game. 
+	/// </summary>
+	public static BackPack instance;
+
+	/// <summary>
 	/// The prefab of the itemView. 
 	/// </summary>
 	public GameObject prefab;
@@ -172,6 +177,19 @@ public class BackPack : MonoBehaviour
 		
 	}
 
+	private void Awake ()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+		else if (instance != this)
+		{
+			DestroyImmediate(gameObject);
+		}
+		DontDestroyOnLoad(gameObject);
+	}
+
 	private void Start ()
 	{
 		//It is guranteed that the itemViewGrid must have a UICenterOnChild Component!
@@ -240,5 +258,10 @@ public class BackPack : MonoBehaviour
 		nameLabel.text = itemName;
 		introductionLabel.text = itemIntroduction;
 		//Play tween forward. 
+	}
+
+	public static void Initialize ()
+	{
+		instance.UpdateBackPackContent();
 	}
 }

@@ -123,6 +123,7 @@ public class Tags
 	public static string Interactable = "Interactable";
 	public static string RealPicture = "RealPicture";
 	public static string Flare = "Flare";
+	public static string Player= "Player";
 }
 
 public class FileName
@@ -130,6 +131,27 @@ public class FileName
 	public static string PermamnentItem = "PermanentItem";
 	public static string UsableItem = "UsableItem";
 	public static string ReminderItem = "ReminderItem";
+}
+
+public class SaveVarName
+{
+	public static string PlayerPosition = "PlayerPosition";
+	public static string BackPackArray = "BackPackArray";
+	public static string ReminderArray = "ReminderArray";
+	public static string ConclusionArray = "ConclusionArray";
+	public static string TruthArray = "TruthArray";
+	public static string ClueArray = "ClueArray";
+	public static string PermanentItemArray = "PermanentItemArray";
+	public static string UsableItemArray = "UsableItemArray";
+	public static string ReminderItemArray = "ReminderItemArray";
+}
+
+public class Constant
+{
+	/// <summary>
+	/// Please change the params to the corresponding positions of the player in different levels. 
+	/// </summary>
+	public static Vector3[] PlayerPosition = new Vector3[]{new Vector3 (0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f)};
 }
 
 public enum ReminderType

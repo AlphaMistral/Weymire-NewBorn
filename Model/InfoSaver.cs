@@ -129,4 +129,17 @@ public class InfoSaver : MonoBehaviour
 		string[] lines = texts.Split(splitChar);
 		return lines;
 	}
+
+	public static void CreateNewSaveData ()
+	{
+		PlayerPrefsX.SetVector3(SaveVarName.PlayerPosition, Constant.PlayerPosition[0]);
+		PlayerPrefsX.SetIntArray(SaveVarName.BackPackArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.ReminderArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.ConclusionArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.TruthArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.ClueArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.PermanentItemArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.UsableItemArray, null);
+		PlayerPrefsX.SetIntArray(SaveVarName.ReminderItemArray, null);
+	}
 }

@@ -172,4 +172,9 @@ public class PlayerInventory : MonoBehaviour
 	{
 		return instance.inventoryItems;
 	}
+
+	public static void Initialize ()
+	{
+		
+	}
 }
