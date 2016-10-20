@@ -135,6 +135,7 @@ public class FileName
 
 public class SaveVarName
 {
+	public static string IsGameDataAvailable = "IsGameDataAvailable";
 	public static string PlayerPosition = "PlayerPosition";
 	public static string BackPackArray = "BackPackArray";
 	public static string ReminderArray = "ReminderArray";

@@ -31,11 +31,11 @@ public class Initializer : MonoBehaviour
 
 	private void Start ()
 	{
-		if (PlayerPrefsX.GetBool("IsGameDataAvailable"))
+		if (PlayerPrefsX.GetBool(SaveVarName.IsGameDataAvailable))
 			StartCoroutine(Load());
 		else
 		{
-			
+			StartCoroutine(Create());
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Initializer : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 		InfoSaver.CreateNewSaveData(playerGameObject.transform);
-		yield return StartCoroutine(UIController.FadeInOut());
+		yield return StartCoroutine(UIController.FadeInOut ());
 	}
 
 	private void IntilizePlayerPosition ()
