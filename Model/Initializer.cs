@@ -17,6 +17,7 @@ public class Initializer : MonoBehaviour
 
 	/// <summary>
 	/// The time interal after which the Initializer will start working. 
+	/// Avoid Possible Script Execution Delay ... No need to change in Project Settings. 
 	/// </summary>
 	private static float loadTime = 0.2f;
 
@@ -43,25 +44,26 @@ public class Initializer : MonoBehaviour
 
 	#region Methods
 
+	/// <summary>
+	/// A Save Data is found. Hence apply it to all the other components in the game. 
+	/// </summary>
 	private IEnumerator Load ()
 	{
 		yield return new WaitForSeconds(loadTime);
 		PlayerInventory.Initialize ();
 		BackPack.Initialize();
 		LensPack.Initialize();
-		yield return StartCoroutine(UIController.FadeInOut ());
+		yield return StartCoroutine(UIController.FadeInOut (FadeOperation.FadeOut));
 	}
 
+	/// <summary>
+	/// The Save Data is not Found, or the player decides to play a new turn. Create the variables to avoid a possible Object Reference Bla Bla Bla ... 
+	/// </summary>
 	private IEnumerator Create ()
 	{
 		yield return new WaitForEndOfFrame();
-		InfoSaver.CreateNewSaveData(playerGameObject.transform);
-		yield return StartCoroutine(UIController.FadeInOut ());
-	}
-
-	private void IntilizePlayerPosition ()
-	{
-		playerGameObject.transform.position = PlayerPrefsX.GetVector3(SaveVarName.PlayerPosition);
+		InfoSaver.CreateNewSaveData();
+		yield return StartCoroutine(UIController.FadeInOut (FadeOperation.FadeOut));
 	}
 
 	private void GetReferences ()

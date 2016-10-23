@@ -170,3 +170,10 @@ public enum ItemType
 	Reminder = 3,
 	Lens = 4
 }
+
+public enum FadeOperation
+{
+	FadeIn = 1,
+	FadeOut = 2,
+	FadeInOut = 3
+}

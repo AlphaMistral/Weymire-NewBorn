@@ -130,6 +130,9 @@ public class InfoSaver : MonoBehaviour
 		return lines;
 	}
 
+	/// <summary>
+	/// WTF? Are you kidding with me? What the hell is this? 
+	/// </summary>
 	public static void CreateNewSaveData ()
 	{
 		PlayerPrefsX.SetVector3(SaveVarName.PlayerPosition, Constant.PlayerPosition[0]);
