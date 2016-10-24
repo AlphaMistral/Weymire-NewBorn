@@ -77,5 +77,18 @@ public abstract class DisplayItem : Item
 	{
 		get;
 	}
+
+	public DisplayItem ()
+	{
+		
+	}
+
+	public DisplayItem (int idx, string n, string sn, string mn)
+	{
+		index = idx;
+		name = n;
+		spriteName = sn;
+		modelName = mn;
+	}
 	#endregion
 }

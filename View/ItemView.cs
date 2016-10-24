@@ -31,6 +31,6 @@ public class ItemView : MonoBehaviour
 
 	private void Awake ()
 	{
-		//item = new Item();
+		//item = PermanentItem.CreateTemporaryItem(1, "sdf", "12afasff", "Sphere", "Sphere");
 	}
 }

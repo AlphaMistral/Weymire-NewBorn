@@ -81,5 +81,10 @@ public class PermanentItem : DisplayItem
 		return retItem;
 	}
 
+	public static PermanentItem CreateTemporaryItem (int idx, string n, string intr, string sn, string mn)
+	{
+		return new PermanentItem(idx, n, intr, sn, mn);
+	}
+
 	#endregion
 }

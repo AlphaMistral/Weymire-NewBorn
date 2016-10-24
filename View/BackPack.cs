@@ -217,6 +217,7 @@ public class BackPack : MonoBehaviour
 		}
 
 		selectedItem = chosenItemView;
+		Debug.Log(selectedItem.item.Name);
 		//Asynchoronously load the model and apply it to the objectShower. 
 		string modelName = selectedItem.item.ModelName;
 		StartCoroutine(LoadModel(modelName));
