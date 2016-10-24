@@ -217,7 +217,6 @@ public class BackPack : MonoBehaviour
 		}
 
 		selectedItem = chosenItemView;
-		Debug.Log(selectedItem.item.Name);
 		//Asynchoronously load the model and apply it to the objectShower. 
 		string modelName = selectedItem.item.ModelName;
 		StartCoroutine(LoadModel(modelName));
@@ -235,16 +234,24 @@ public class BackPack : MonoBehaviour
 		#if UNITY_EDITOR
 		//Object loadedResource = Resources.Load(modelName, typeof(GameObject));
 		//objectShower = Instantiate(loadedResource as GameObject, pos, Quaternion.identity) as GameObject;
+		objectShower.GetComponent<MeshRenderer> ().enabled = false;
+		SetInteractionEnabled (false);
 		GameObject loadedPrefab = Resources.Load(modelName, typeof(GameObject)) as GameObject;
 		objectShower.GetComponent<MeshFilter>().mesh = loadedPrefab.GetComponent<MeshFilter> ().sharedMesh;
 		objectShower.GetComponent<MeshRenderer> ().material = loadedPrefab.GetComponent<MeshRenderer> ().sharedMaterial;
+		objectShower.GetComponent<MeshRenderer> ().enabled = true;
+		SetInteractionEnabled (true);
 		yield return null;
 		#else
+		objectShower.GetComponent<MeshRenderer> ().enabled = false;
+		SetInteractionEnabled (false);
 		ResourceRequest requestState = Resources.LoadAsync(modelName);
 		yield return requestState;
 		GameObject loadedPrefab = requestState.asset as GameObject;
 		objectShower.GetComponent<MeshFilter>().mesh = loadedPrefab.GetComponent<MeshFilter> ().sharedMesh;
 		objectShower.GetComponent<MeshRenderer> ().material = loadedPrefab.GetComponent<MeshRenderer> ().sharedMaterial;
+		objectShower.GetComponent<MeshRenderer> ().enabled = true;
+		SetInteractionEnabled (true);
 		#endif
 	}
 
@@ -264,5 +271,17 @@ public class BackPack : MonoBehaviour
 	public static void Initialize ()
 	{
 		instance.UpdateBackPackContent();
+	}
+
+	/// <summary>
+	/// Set whether the player is allowed to interact with the backpack. 
+	/// Specifically, when sprites or models are being loaded, any interaction would be forbidden. 
+	/// </summary>
+	/// <param name="state">If set to <c>true</c> state.</param>
+	private void SetInteractionEnabled (bool state)
+	{
+		equipButton.isEnabled = state;
+		escapeButton.isEnabled = state;
+		//TBC
 	}
 }
