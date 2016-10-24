@@ -8,6 +8,11 @@ using System.Collections.Generic;
 public class BackPack : MonoBehaviour 
 {
 	/// <summary>
+	/// The singleton of the BackPack class. Please note that there is one and only one backpack in the game. 
+	/// </summary>
+	public static BackPack instance;
+
+	/// <summary>
 	/// The prefab of the itemView. 
 	/// </summary>
 	public GameObject prefab;
@@ -79,8 +84,8 @@ public class BackPack : MonoBehaviour
 	/// <summary>
 	/// Insert a single item into the backPack. Invoked by PlayerInventory only.
 	/// </summary>
-	/// <param name="item">Item.</param>
-	public void InsertItem(Item item)
+	/// <param name="item">DisplayItem.</param>
+	public void InsertDisplayItem(Item item)
 	{
 		
 	}
@@ -110,13 +115,13 @@ public class BackPack : MonoBehaviour
 	public void UpdateBackPackContent ()
 	{
 		//In order to avoid deleting elements while traversing the list
-		List <Item> backPackItemInfo = new List <Item>();
-		List <Item> inventoryItems = PlayerInventory.GetItemList();
-		List <Item> toDelete = new List <Item>();
+		List <DisplayItem> backPackItemInfo = new List <DisplayItem>();
+		List <DisplayItem> inventoryItems = PlayerInventory.GetItemList();
+		List <DisplayItem> toDelete = new List <DisplayItem>();
 
 		foreach (ItemView itemView in items)
 		{
-			Item item = itemView.item;
+			DisplayItem item = itemView.item;
 			if (!inventoryItems.Contains(item))
 			{
 				toDelete.Add(item);
@@ -125,7 +130,7 @@ public class BackPack : MonoBehaviour
 				backPackItemInfo.Add(item);
 		}
 
-		foreach (Item item in inventoryItems)
+		foreach (DisplayItem item in inventoryItems)
 		{
 			if (!backPackItemInfo.Contains(item))
 			{
@@ -138,7 +143,7 @@ public class BackPack : MonoBehaviour
 			}
 		}
 
-		foreach (Item item in toDelete)
+		foreach (DisplayItem item in toDelete)
 		{
 			foreach (ItemView itemView in items)
 			{
@@ -170,6 +175,19 @@ public class BackPack : MonoBehaviour
 	private void OnDisable ()
 	{
 		
+	}
+
+	private void Awake ()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+		else if (instance != this)
+		{
+			DestroyImmediate(gameObject);
+		}
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void Start ()
@@ -240,5 +258,10 @@ public class BackPack : MonoBehaviour
 		nameLabel.text = itemName;
 		introductionLabel.text = itemIntroduction;
 		//Play tween forward. 
+	}
+
+	public static void Initialize ()
+	{
+		instance.UpdateBackPackContent();
 	}
 }

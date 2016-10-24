@@ -143,4 +143,9 @@ public class UIController : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 	}
+
+	public static IEnumerator FadeInOut (FadeOperation _op)
+	{
+		yield return new WaitForEndOfFrame();
+	}
 }

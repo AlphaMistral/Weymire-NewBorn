@@ -5,6 +5,11 @@ using System.Collections.Generic;
 public class LensPack : MonoBehaviour 
 {
 	/// <summary>
+	/// The singleton instance of the LensPack. 
+	/// </summary>
+	public static LensPack instance;
+
+	/// <summary>
 	/// The PhotoCamera compoenent of the main Camera.
 	/// </summary>
 	public PhotoCamera photoCamera;
@@ -22,14 +27,6 @@ public class LensPack : MonoBehaviour
 	//It is still controversial whether we should use a generic list or simply four different variables. 
 
 	private void Awake ()
-	{
-		
-	}
-
-	/// <summary>
-	/// Loads the unlocked modes.
-	/// </summary>
-	private void Initialize ()
 	{
 		
 	}
@@ -85,5 +82,10 @@ public class LensPack : MonoBehaviour
 	private IEnumerator HighlightLens (bool state)
 	{
 		yield return null;
+	}
+
+	public static void Initialize ()
+	{
+		
 	}
 }
