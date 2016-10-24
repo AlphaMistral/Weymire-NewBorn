@@ -1,8 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item
+public abstract class Item
 {
+	#region Protected Variables
+
+	/// <summary>
+	/// The index of the Item in its OWN CATEGORY. Two different items may have a same index. However they are tracked in different databases. 
+	/// </summary>
+	protected int index;
+
+	/// <summary>
+	/// The name of the Item. 
+	/// </summary>
+	protected string name;
+
+	/// <summary>
+	/// The introduction of the item. Please Note that introduction is the content of Reminders. Reminders don't need introductions. 
+	/// </summary>
+	protected string introduction;
+
+	#endregion
+
+	#region Public Attributes
+
 	public int Index
 	{
 		get
@@ -19,67 +40,42 @@ public class Item
 		}
 	}
 
-	public string ModelName
+	//There is no specific Attribute for Introduction because Introduction is treated differently in items and reminders. 
+
+	#endregion
+}
+
+public abstract class DisplayItem : Item
+{
+	#region Protected Variables
+
+	protected string spriteName;
+
+	protected string modelName;
+
+	#endregion
+
+	#region Public Attributes
+
+	/// <summary>
+	/// The sprite name of the Item. Used in NGUI Displaying. 
+	/// </summary>
+	public abstract string SpriteName
 	{
-		get
-		{
-			return modelName;
-		}
+		get;
 	}
 
-	public string Introduction
+	/// <summary>
+	/// The model name of the Item. Used in BackPack. 
+	/// </summary>
+	public abstract string ModelName
 	{
-		get
-		{
-			return introduction;
-		}
+		get;
 	}
 
-	public bool IsPermanent
+	public abstract string Introduction
 	{
-		get
-		{
-			return isPermanent;
-		}
+		get;
 	}
-
-	public string Belonger
-	{
-		get
-		{
-			return belonger;
-		}
-	}
-
-	private int index;
-	private string name;
-	private string modelName;
-	private string introduction;
-	private bool isPermanent;
-	private string belonger; 
-	public virtual void EquipItem()
-	{
-		
-	}
-
-	protected virtual void UseItem()
-	{
-		
-	}
-
-	public Item ()
-	{
-		modelName = "Sphere";
-		name = "Mother Fucker Test";
-		introduction = "Well this is only a test script please don't expect that much hhhhhhhhhhhhh!!!";
-	}
-
-	public Item (int idx, string n, string m, string i, bool isP)
-	{
-		index = idx;
-		name = n;
-		modelName = m;
-		introduction = i;
-		isPermanent = isP;
-	}
+	#endregion
 }

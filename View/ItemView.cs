@@ -6,7 +6,7 @@ public class ItemView : MonoBehaviour
 	/// <summary>
 	/// The item information of the view Component.
 	/// </summary>
-	public Item item;
+	public DisplayItem item;
 
 	/// <summary>
 	/// The sprite of the itemView. Very crucial to handle.
@@ -31,6 +31,6 @@ public class ItemView : MonoBehaviour
 
 	private void Awake ()
 	{
-		item = new Item();
+		//item = new Item();
 	}
 }

@@ -17,6 +17,7 @@ public class CameraFollow : MonoBehaviour
 
 	/// <summary>
 	/// The offset of the position of the camera relative to the player Transform.
+	/// This is not hard-coding. Rather it is an appropriate parameter explored by me. 
 	/// </summary>
 	public Vector3 offset = new Vector3(1f, 0.5f, -1.56f);
 
@@ -54,6 +55,19 @@ public class CameraFollow : MonoBehaviour
 	/// The default compass direction. 
 	/// </summary>
 	private float defaultCompassDirection;
+
+	#endregion
+
+	#region DeltaPosition Calculation Helpers
+
+	private static Vector2 relativeScreen = new Vector2 (1920f, 1080f);
+	private static Vector2 swipeEffectiveArea = new Vector2(0.4f, 0.25f);
+	private static float FPRotatingSpeed = 1.5f;
+	private static float swipeRotatingSpeed = 8f;
+	private static float followOffset = 0.5f;
+	private static float zRotationMax = 15f;
+	private static float xRotationMin = -8f;
+	private static float lookupScaler = 0.1f;
 
 	#endregion
 
@@ -102,24 +116,24 @@ public class CameraFollow : MonoBehaviour
 			if (angles.x < 180f)
 				angles.x = Mathf.Min(50f, angles.x);
 			dir = Quaternion.Euler(angles);
-			transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 3f);
-			transform.position = toFollow.position + new Vector3(0f, yOffset + 0.5f, 0f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * FPRotatingSpeed);
+			transform.position = toFollow.position + new Vector3(0f, yOffset + followOffset, 0f);
 		}
 		else
 		{
-			AvoidObstacle ();
+			AvoidObstacle();
 			transform.position = toFollow.position + new Vector3 (0f, yOffset, 0f) + offset * testMagnitude;
 			if (isLocked)
 				return;
-			offset = Quaternion.Euler(0f, deltaPosition.x / 3, 0f) * offset;
-			transform.RotateAround(toFollow.position + new Vector3 (0f, yOffset, 0f), Vector3.up, deltaPosition.x / 3);
+			offset = Quaternion.Euler(0f, deltaPosition.x * Time.deltaTime * swipeRotatingSpeed, 0f) * offset;
+			transform.RotateAround(toFollow.position + new Vector3 (0f, yOffset, 0f), Vector3.up, deltaPosition.x * Time.deltaTime * swipeRotatingSpeed);
 			double rx = transform.rotation.eulerAngles.x > 180f ? transform.rotation.eulerAngles.x - 360f : transform.rotation.eulerAngles.x;
 			if (deltaPosition.y != 0f)
 			{
-				if (deltaPosition.y > 0f && rx < 15f)
-					transform.rotation *= Quaternion.Euler(deltaPosition.y / 5f, 0f, 0f);
-				else if (deltaPosition.y < 0f && rx > -8f)
-					transform.rotation *= Quaternion.Euler(deltaPosition.y / 5f, 0f, 0f);
+				if (deltaPosition.y > 0f && rx < zRotationMax)
+					transform.rotation *= Quaternion.Euler(deltaPosition.y * Time.deltaTime * swipeRotatingSpeed * lookupScaler, 0f, 0f);
+				else if (deltaPosition.y < 0f && rx > xRotationMin)
+					transform.rotation *= Quaternion.Euler(deltaPosition.y * Time.deltaTime * swipeRotatingSpeed * lookupScaler, 0f, 0f);
 			}
 		}
 	}
@@ -147,13 +161,13 @@ public class CameraFollow : MonoBehaviour
 
 	void On_TouchStart (Gesture gesture)
 	{
-		if (gesture.position.x <= Screen.width / 2.5 || gesture.position.y <= Screen.height / 4)
+		if (gesture.position.x <= Screen.width * swipeEffectiveArea.x || gesture.position.y <= Screen.height * swipeEffectiveArea.y)
 		{
 			//isLocked = true;
 			return;
 		}
-		deltaPosition.x = gesture.deltaPosition.x * (1920f / Screen.width);
-		deltaPosition.y = gesture.deltaPosition.y * (1080f / Screen.height);
+		deltaPosition.x = gesture.deltaPosition.x * (relativeScreen.x / Screen.width);
+		deltaPosition.y = gesture.deltaPosition.y * (relativeScreen.y / Screen.height);
 	}
 
 	void On_TouchEnd (Gesture gesture)
@@ -172,7 +186,7 @@ public class CameraFollow : MonoBehaviour
 	/// <param name="gesture">Gesture.</param>
 	void CheckSwipePos (Gesture gesture)
 	{
-		if (gesture.position.x <= Screen.width / 2.5 || gesture.position.y <= Screen.height / 4)
+		if (gesture.position.x <= Screen.width * swipeEffectiveArea.x || gesture.position.y <= Screen.height * swipeEffectiveArea.y)
 		{
 			isLocked = true;
 			return;
