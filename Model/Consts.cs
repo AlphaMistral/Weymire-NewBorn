@@ -153,6 +153,8 @@ public class Constant
 	/// Please change the params to the corresponding positions of the player in different levels. 
 	/// </summary>
 	public static Vector3[] PlayerPosition = new Vector3[]{new Vector3 (0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f)};
+	public static Vector2 NGUIResolution = new Vector2 (1280f, 720f);
+	public static Vector4 PhotoObjectShowArea = new Vector4 (0.2f, 0.8f, 0.1f, 0.9f);
 }
 
 public enum ReminderType
@@ -176,4 +178,19 @@ public enum FadeOperation
 	FadeIn = 1,
 	FadeOut = 2,
 	FadeInOut = 3
+}
+
+public enum CameraMode
+{
+	Normal = 1,
+	NightVision = 2,
+	LongFocus = 3,
+	Hacker = 4
+}
+
+public enum TweenGroup
+{
+	OverallSet = 0, 
+	MainSet = 1,
+	SelfOnly = 2
 }

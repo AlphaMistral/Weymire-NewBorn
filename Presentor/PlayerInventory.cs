@@ -5,21 +5,21 @@ using PixelCrushers.DialogueSystem;
 
 public class InventoryState
 {
-	public LensItem lensItem;
+	public CameraMode cameraMode;
 	public DisplayItem item;
 }
 
 public class PlayerInventory : MonoBehaviour 
 {
-	public LensItem EquippedLens
+	public CameraMode cameraMode
 	{
 		get
 		{
-			return equippedLens;
+			return cameraMode;
 		}
 		private set
 		{
-			inventoryState.lensItem = value;
+			inventoryState.cameraMode = value;
 		}
 	}
 

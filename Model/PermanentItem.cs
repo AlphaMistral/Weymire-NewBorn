@@ -76,7 +76,7 @@ public class PermanentItem : DisplayItem
 	public static PermanentItem GetItemByID (int idx)
 	{
 		string itemString = InfoSaver.GetStringFromResource(FileName.PermamnentItem, idx);
-		string[] splitted = itemString.Split(' ');
+		string[] splitted = itemString.Split('#');
 		PermanentItem retItem = new PermanentItem(idx, splitted[0], splitted[1], splitted[2], splitted[3]);
 		return retItem;
 	}

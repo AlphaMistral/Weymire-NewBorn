@@ -55,6 +55,7 @@ public class PhotoObjectShower : MonoBehaviour
 	/// </summary>
 	public void UpdateShower (Vector2 screenPosition)
 	{
-		transform.localPosition = new Vector3(screenPosition.x / Screen.width * 1280f - 640f, screenPosition.y / Screen.height * 720f - 360f);
+		//Make sure the UIRoot is Constrained or Constrained on Mobile! 
+		transform.localPosition = new Vector3(screenPosition.x / Screen.width * Constant.NGUIResolution.x - Constant.NGUIResolution.x / 2, screenPosition.y / Screen.height * Constant.NGUIResolution.y - Constant.NGUIResolution.y / 2);
 	}
 }

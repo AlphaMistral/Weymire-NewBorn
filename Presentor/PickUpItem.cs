@@ -10,6 +10,11 @@ public class PickUpItem : PhotoObject
 	public int itemIndex;
 
 	/// <summary>
+	/// The camera mode must matches the expected mode for a shot. 
+	/// </summary>
+	public CameraMode expectedMode;
+
+	/// <summary>
 	/// The Override Function of the PhotoTaken in the Base Abstract Class.
 	/// </summary>
 	public override void PhotoTaken (InventoryState state)
@@ -26,7 +31,13 @@ public class PickUpItem : PhotoObject
 	/// <param name="state">State.</param>
 	public override bool NotifyObjectOnScreen (InventoryState state, Vector2 screenPosition, float maxDistance)
 	{
-		return true;
+		if (state.cameraMode != expectedMode)
+			return false;
+		if (screenPosition.x >= Constant.PhotoObjectShowArea.x && screenPosition.x <= Constant.PhotoObjectShowArea.y &&
+		    screenPosition.y >= Constant.PhotoObjectShowArea.z && screenPosition.y <= Constant.PhotoObjectShowArea.w)
+			return true;
+		else
+			return false;
 	}
 
 

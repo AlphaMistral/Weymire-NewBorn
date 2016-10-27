@@ -45,7 +45,7 @@ public class PhotoCamera : MonoBehaviour
 	private InventoryState inventoryState;
 
 	/// <summary>
-	/// The highlighted object. It is also the object that would be interacted with the photo is taken. 
+	/// The highlighted object. It is also the object that would be interacted when the photo is taken. 
 	/// </summary>
 	private PhotoObject highlightedObject;
 
@@ -233,6 +233,10 @@ public class PhotoCamera : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Tries to stop showing the object. 
+	/// </summary>
+	/// <param name="obj">Object.</param>
 	private void TryDismissObject (PhotoObject obj)
 	{
 		if (showerDic.ContainsKey(obj))
