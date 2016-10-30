@@ -21,6 +21,7 @@ public class AnalyzeButton : TweenButton
 			return;
 		buttonWorkOrNot = false;
 		TweenerStartPlay();
+		slider.ForceShrink();
 	}
 
 	#endregion

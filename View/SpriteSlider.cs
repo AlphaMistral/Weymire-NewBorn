@@ -86,6 +86,7 @@ public class SpriteSlider : MonoBehaviour
 	public void ChangeButtonState ()
 	{
 		button.isEnabled = !button.isEnabled;
+		currentState = !currentState;
 	}
 
 	#endregion
