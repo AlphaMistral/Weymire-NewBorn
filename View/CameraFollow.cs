@@ -22,6 +22,11 @@ public class CameraFollow : MonoBehaviour
 	public Vector3 offset = new Vector3(1f, 0.5f, -1.56f);
 
 	/// <summary>
+	/// The first person offset.
+	/// </summary>
+	public Vector3 firstPersonOffset = new Vector3(1f, 0.5f, -1.56f);
+
+	/// <summary>
 	/// Since the pivot of the model of the player GameObject is located at the foot, in order to make sure that the Obstacle Avoidance could appropritately work out, 
 	/// a yOffset is designed independently to make the fabricated pivot located at the center of the player. By default it is 1. 
 	/// </summary>
@@ -117,7 +122,8 @@ public class CameraFollow : MonoBehaviour
 				angles.x = Mathf.Min(50f, angles.x);
 			dir = Quaternion.Euler(angles);
 			transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * FPRotatingSpeed);
-			transform.position = toFollow.position + new Vector3(0f, yOffset + followOffset, 0f);
+			transform.position = firstPersonOffset + toFollow.position;
+			//transform.position = toFollow.position + new Vector3(0f, yOffset + followOffset, 0f);
 		}
 		else
 		{

@@ -17,6 +17,11 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public GameObject playerCamera;
 
+	/// <summary>
+	/// The Mesh Renderer of the PlayerGameObject. 
+	/// </summary>
+	public SkinnedMeshRenderer m_renderer;
+
 	#endregion
 
 	#region Private Attributes
@@ -127,5 +132,15 @@ public class PlayerMovement : MonoBehaviour
 			m_animator.SetFloat(AnimatorHash.speedFloat, 0f);
 		}
 	}
+
+	#endregion
+
+	#region Public Methods
+
+	public void SetRendererState (bool state)
+	{
+		m_renderer.enabled = state;
+	}
+
 	#endregion
 }
