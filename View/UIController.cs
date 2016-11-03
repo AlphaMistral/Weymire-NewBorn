@@ -2,6 +2,7 @@
 using System.Collections;
 using PixelCrushers.DialogueSystem;
 using System.Collections.Generic;
+using UnityStandardAssets.ImageEffects;
 
 //UIController.cs serves as the controller of all the sprites, images, buttons and interactable 2D elements in the game view. Hence it includes UI part and notifier part.
 public class UIController : MonoBehaviour 
@@ -39,6 +40,7 @@ public class UIController : MonoBehaviour
 	public static event onFade OnFadeIn;
 	public static event onFade OnFadeOut;
 
+	private UIButton photoButton;
 
 	public static GameObject UIRoot
 	{
@@ -147,5 +149,37 @@ public class UIController : MonoBehaviour
 	public static IEnumerator FadeInOut (FadeOperation _op)
 	{
 		yield return new WaitForEndOfFrame();
+	}
+
+	public static IEnumerator BlurCamera (bool direction)
+	{
+		Camera cam = Camera.main;
+		BlurOptimized blur;
+		if (!cam.GetComponent<BlurOptimized>())
+		{
+			blur = cam.gameObject.AddComponent<BlurOptimized>() as BlurOptimized;
+			blur.blurIterations = CameraBlurParams.blurIteration;
+			blur.downsample = CameraBlurParams.downSample;
+		}
+		else
+		{
+			blur = cam.GetComponent<BlurOptimized>();
+		}
+		blur.blurSize = direction ? CameraBlurParams.maxBlurSize : CameraBlurParams.minBlurSize;
+		while (direction ? blur.blurSize > CameraBlurParams.minBlurSize : blur.blurSize < CameraBlurParams.maxBlurSize)
+		{
+			blur.blurSize = Mathf.Lerp(blur.blurSize, direction ? CameraBlurParams.minBlurSize : CameraBlurParams.maxBlurSize, CameraBlurParams.fadeSpeed * Time.deltaTime);
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+		DestroyImmediate(blur);
+		yield return null;
+	}
+
+	public static IEnumerator BlurCameraInOut ()
+	{
+		instance.photoButton.isEnabled = false;
+		yield return instance.StartCoroutine(BlurCamera (false));
+		yield return instance.StartCoroutine(BlurCamera(true));
+		instance.photoButton.isEnabled = true;
 	}
 }

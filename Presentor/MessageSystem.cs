@@ -17,14 +17,17 @@ public class MessageSystem : MonoBehaviour
 	#region Public Variables
 
 
+
 	#endregion
 
 	#region Private Components
 
 
+
 	#endregion
 
 	#region MonoBehaviours
+
 
 
 	#endregion

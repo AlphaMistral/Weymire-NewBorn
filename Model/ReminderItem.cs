@@ -89,7 +89,7 @@ public class ReminderItem : Item
 	public static ReminderItem GetItemByID (int idx)
 	{
 		string itemString = InfoSaver.GetStringFromResource(FileName.ReminderItem, idx);
-		string[] splitted = itemString.Split(' ');
+		string[] splitted = itemString.Split('#');
 		return new ReminderItem(idx, int.Parse(splitted[0]), int.Parse(splitted[1]), splitted[2], splitted[3]);
 	}
 

@@ -247,6 +247,9 @@ public class PhotoCamera : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// A Real Picture is inside the camera view. Highlight it. 
+	/// </summary>
 	private void TryHighlight ()	
 	{
 		if (!highlightedObject)
@@ -261,6 +264,9 @@ public class PhotoCamera : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Real Pictures no longer in the sight. Downlight the highlight effect. 
+	/// </summary>
 	private void TryDownlight ()
 	{
 		if (!highlightedObject)

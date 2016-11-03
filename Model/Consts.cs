@@ -194,3 +194,23 @@ public enum TweenGroup
 	MainSet = 1,
 	SelfOnly = 2
 }
+
+public struct CameraBlurParams
+{
+	public static float maxBlurSize = 9f;
+	public static float minBlurSize = 1f;
+	public static float fadeSpeed = 5f;
+	public static int downSample = 0;
+	public static int blurIteration = 1;
+}
+
+public struct SpriteName
+{
+	public struct Reminder
+	{
+		public static string letter = "LetterReminder";
+		public static string email = "EmailReminder";
+		public static string news = "NewsReminder";
+		public static string report = "ResearchReport";
+	}
+}
