@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class DiaryWindow : MonoBehaviour 
@@ -57,6 +58,7 @@ public class DiaryWindow : MonoBehaviour
 	private static Vector3 targetBackgroundPosition = new Vector3(150f, -690f, 0f);
 	private static Vector3 targetBackgroundScale = new Vector3(0.7f, 0.7f, 0.7f);
 
+	private static string tab2Space = "     ";
 	private static float tweenDuration = 0.4f;
 
 	#endregion
@@ -91,11 +93,11 @@ public class DiaryWindow : MonoBehaviour
 	{
 		if (ri == showingReminder)
 			return;
+		PlayTween();
 		showingReminder = ri;
 		string content = ri.Content;
-		instance.contentLabel.text = content;
+		instance.contentLabel.text = ProcessContent(ri.Content);
 		ReminderType type = ri.Type;
-		PlayTween();
 		ChangeBackground(type);
 	}
 
@@ -131,6 +133,17 @@ public class DiaryWindow : MonoBehaviour
 				instance.background.spriteName = SpriteName.Reminder.report;
 				break;
 		}
+	}
+
+	private static string ProcessContent (string content)
+	{
+		string[] enterSplitted = content.Split(new[] {"\\n"}, StringSplitOptions.None);
+		string ret = "";
+		foreach (string s in enterSplitted)
+		{
+			ret += tab2Space + s + "\n\n";
+		}
+		return ret;
 	}
 
 	private static void PlayTween ()
